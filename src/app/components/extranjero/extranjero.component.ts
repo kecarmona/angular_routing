@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ExtranjeroService } from './extranjero.service';
 
 @Component({
   selector: 'app-extranjero',
@@ -7,9 +8,16 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./extranjero.component.css'],
 })
 export class ExtranjeroComponent implements OnInit {
-  constructor(private aRouter: ActivatedRoute) {
-    console.log(this.aRouter.snapshot.paramMap.get('id'));
-  }
+  reponse: any;
+  constructor(
+    private aRouter: ActivatedRoute,
+    private extSrv: ExtranjeroService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.aRouter.snapshot.paramMap.get('id'));
+    this.extSrv.getExteranjeroInf().subscribe((data) => {
+      this.reponse = data;
+    });
+  }
 }
